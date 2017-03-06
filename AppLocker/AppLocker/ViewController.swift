@@ -51,7 +51,8 @@ class ViewController: NSViewController {
             if(currentApp.localizedName == "Sublime Text" && currentApp.activationPolicy == .regular) {
                 
                 print("\nFOUND:\(currentApp.localizedName) PID: \(currentApp.processIdentifier)")
-                killpg(currentApp.processIdentifier, SIGKILL)
+                kill(currentApp.processIdentifier, SIGKILL)
+//                pause()
             }
         }
         
