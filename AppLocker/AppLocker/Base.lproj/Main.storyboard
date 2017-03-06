@@ -728,5 +728,18 @@
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Gnr-Nr-lI0">
+            <objects>
+                <viewController id="fF7-cc-Fdf" sceneMemberID="viewController">
+                    <view key="view" id="X4Z-Ej-u3S">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="TVd-e7-RJd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="638" y="655"/>
+        </scene>
     </scenes>
 </document>
