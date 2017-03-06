@@ -19,73 +19,44 @@ class ViewController: NSViewController {
 
         self.appListLabel.stringValue = ""
         
-//        let processName = ProcessInfo.processInfo.processName
-//        let processIdentifier = ProcessInfo.processInfo.processIdentifier
-//        
-//        print("processName: \(processName)")
-//        print("processIdentifier: \(processIdentifier) \n")
-
-        
-        
-        for window in NSApplication.shared().windows {
-            
-            print(window.title)
-            print(window.miniwindowTitle)
-            print(window.titleVisibility)
-        }
-        
-        
-        
     }
     
     @IBAction func showAppListPressed(_ sender: Any) {
 
-        self.startScanning()
-
-    }
-
-    
-    func findProcess(appsArray: [NSRunningApplication]) {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            
+            let scanTimer = Timer.scheduledTimer(timeInterval: 0.2,
+                                                 target: self,
+                                                 selector: #selector(self.getAllProcess),
+                                                 userInfo: nil,
+                                                 repeats: true)
         
-        for currentApp in appsArray {
+            scanTimer.fire()
+        }
+        
+    }
+    
+    
+    func getAllProcess() {
+        
+        let ws = NSWorkspace.shared()
+        let apps = ws.runningApplications
+        
+        for currentApp in apps {
             
-            
-            
-            let str = NSString(format: "\n Running Apps: %@ \n", self.appListLabel.stringValue + currentApp.localizedName!) as String
-            
-            print(currentApp.localizedName!)
-            self.appListLabel.stringValue = str
-//            
-//            if(currentApp.activationPolicy == .regular) {
-//                
-//         
-//            }
-            
-            if (currentApp.localizedName == "Sublime Text") {
-                
-                print("\n f\(currentApp.localizedName)")
-                currentApp.forceTerminate()
+            if currentApp.activationPolicy == .regular {
+                print(currentApp.localizedName!)
             }
             
+            if(currentApp.localizedName == "Sublime Text" && currentApp.activationPolicy == .regular) {
+                
+                print("\nFOUND:\(currentApp.localizedName) PID: \(currentApp.processIdentifier)")
+                killpg(currentApp.processIdentifier, SIGKILL)
+            }
         }
         
     }
-    
-    
-    func startScanning() {
-        
-        while true {
-            
-            print("\nscanning...")
-            
-            let ws = NSWorkspace.shared()
-            let apps = ws.runningApplications
-            
-            self.findProcess(appsArray: apps)
-        }
-        
-    }
-    
+
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
