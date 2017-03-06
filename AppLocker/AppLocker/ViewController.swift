@@ -27,7 +27,7 @@ class ViewController: NSViewController {
             
             let scanTimer = Timer.scheduledTimer(timeInterval: 0.2,
                                                  target: self,
-                                                 selector: #selector(self.getAllProcess),
+                                                 selector: #selector(self.findProcess),
                                                  userInfo: nil,
                                                  repeats: true)
         
@@ -37,7 +37,7 @@ class ViewController: NSViewController {
     }
     
     
-    func getAllProcess() {
+    func findProcess() {
         
         let ws = NSWorkspace.shared()
         let apps = ws.runningApplications
