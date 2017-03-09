@@ -16,15 +16,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
       
+        //start scanning for process
+        let lockManager = LockManagerClass.shareInstance
+        lockManager.startScanning()
+        
+        //add statusItem to Status Bar
         self.statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         self.statusItem?.image = NSImage(named: "locker_img")
         self.statusItem?.target = self
         self.statusItem?.action = #selector(self.statusIconSelected)
+
         
-        let lockOnce = LockManagerClass.shareInstance
-
         let openSettings = NSMenuItem(title: "Settings", action: #selector(self.menueSetttingsSelected), keyEquivalent: "")
-
         NSApp.mainMenu?.addItem(openSettings)
         //TODO: make menue to be visible
         
