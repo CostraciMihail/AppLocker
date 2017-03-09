@@ -1,34 +1,27 @@
 //
-//  ViewController.swift
+//  LockManager.swift
 //  AppLocker
 //
-//  Created by winify on 3/3/17.
+//  Created by winify on 3/9/17.
 //  Copyright © 2017 C.Mihail. All rights reserved.
 //
 
+import Foundation
 import Cocoa
 
-class ViewController: NSViewController {
-
-    @IBOutlet weak var titleLabe: NSTextField!
-    @IBOutlet var showActiveAppButton: NSView!
-    @IBOutlet weak var appListLabel: NSTextFieldCell!
+class LockManagerClass {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.appListLabel.stringValue = ""
-        self.startScanning()
-        
-    }
+    static let shareInstance = LockManagerClass()
     
-    @IBAction func showAppListPressed(_ sender: Any) {
+    ///This prevents others from using the default '()' initializer for this class.
+    private init() {
         
         self.startScanning()
-        
+    
     }
     
-    func startScanning() {
+    
+    private func startScanning() {
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             
@@ -43,7 +36,7 @@ class ViewController: NSViewController {
     }
     
     
-    func findProcess() {
+    @objc private func findProcess() {
         
         let ws = NSWorkspace.shared()
         let apps = ws.runningApplications
@@ -58,18 +51,12 @@ class ViewController: NSViewController {
                 
                 print("\nFOUND:\(currentApp.localizedName) PID: \(currentApp.processIdentifier)")
                 kill(currentApp.processIdentifier, SIGKILL)
-//                pause()
+                //                pause()
             }
         }
         
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
-
+    
+    
+    
 }
-
