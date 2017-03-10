@@ -51,7 +51,10 @@ class LockManagerClass {
                 print("\nFOUND:\(currentApp.localizedName) PID: \(currentApp.processIdentifier)")
                 
                 self.stopProcess(withID: currentApp.processIdentifier)
-                self.keyboardRead(forProcessID: currentApp.processIdentifier)
+                
+                if self.checkEnteredPass(forProcessID: currentApp.processIdentifier) {
+                    break
+                }
             }
         }
         
@@ -74,7 +77,7 @@ class LockManagerClass {
         kill(procID, SIGCONT)
     }
  
-    private func keyboardRead(forProcessID procesID: pid_t) {
+    private func checkEnteredPass(forProcessID procesID: pid_t) -> Bool {
         
         print("Enter password to continue:")
         let outP = readLine()
@@ -83,8 +86,11 @@ class LockManagerClass {
             if outP == "123" {
                 self.scanTimer.invalidate()
                 self.resumeProcess(withID: procesID)
+                return true
             }
         }
+        
+        return false
     }
     
     
