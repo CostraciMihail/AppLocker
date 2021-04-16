@@ -2,7 +2,7 @@
 //  LockManager.swift
 //  AppLocker
 //
-//  Created by winify on 3/9/17.
+//  Created by C.Mihail on 3/9/17.
 //  Copyright © 2017 C.Mihail. All rights reserved.
 //
 
